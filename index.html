@@ -194,7 +194,7 @@
 
     @media screen and (max-width: 768px) {
       .pics {
-        gap: 30px 15px;
+        gap: 50px 20px; /* Increased row + column gap for smaller screens */
       }
 
       .pics div {
@@ -224,6 +224,15 @@
         font-size: 13px;
       }
     }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #999;
+      background-color: #111;
+      border-top: 1px solid #333;
+    }
   </style>
 </head>
 <body>
@@ -246,6 +255,8 @@
       </div>
     </div>
   </div>
+
+  <footer>I don’t own any rights for the movies.</footer>
 
   <script>
     const movies = [
