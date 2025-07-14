@@ -126,43 +126,39 @@
       padding: 1rem;
       border-radius: 10px;
       width: 100%;
-      max-width: 650px;
-      display: flex;
-      flex-direction: column;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
       color: #ddd;
+      text-align: center;
+      box-shadow: 0 0 20px #000;
     }
 
     .modal-content img.poster {
       width: 100%;
-      max-width: 240px;
+      max-width: 200px;
       height: auto;
       border-radius: 10px;
       margin: 0 auto 1rem;
     }
 
-    .modal-content .text {
-      flex: 1;
-    }
-
     .modal-content h1 {
       margin-bottom: 0.5rem;
       color: #ffcc00;
-      font-size: 14px;
-      text-align: center;
+      font-size: 16px;
     }
 
     .modal-content h2 {
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.5rem;
       font-size: 18px;
-      text-align: center;
     }
 
     .modal-content h3 {
       font-weight: normal;
       line-height: 1.5;
       font-size: 14px;
-      text-align: center;
       white-space: pre-line;
+      padding: 0 0.5rem;
     }
 
     .watchbutton {
@@ -180,7 +176,6 @@
       font-size: 0.9rem;
       cursor: pointer;
       border-radius: 6px;
-      width: fit-content;
     }
 
     .watchbutton button:hover,
@@ -193,35 +188,31 @@
     }
 
     @media screen and (max-width: 768px) {
-      .pics {
-        gap: 50px 20px; /* Increased row + column gap for smaller screens */
+      .modal-content {
+        max-width: 90%;
+        max-height: 90vh;
       }
 
-      .pics div {
-        height: 160px;
-      }
-
-      .header {
-        font-size: 14px;
-        padding: 0.5rem;
-      }
-
-      .pics p {
-        font-size: 0.7rem;
+      .modal-content img.poster {
+        max-width: 160px;
       }
 
       .modal-content h2 {
         font-size: 16px;
       }
+
+      .modal-content h3 {
+        font-size: 13.5px;
+      }
     }
 
     @media screen and (max-width: 500px) {
-      .pics div {
-        height: 140px;
-      }
-
       .modal-content h3 {
         font-size: 13px;
+      }
+
+      .pics div {
+        height: 140px;
       }
     }
 
@@ -244,15 +235,13 @@
   <div class="modal-container" id="modal">
     <div class="modal-content">
       <img class="poster" id="modalPoster" src="" alt="Poster">
-      <div class="text">
-        <h1>ABOUT THE MOVIE</h1>
-        <h2 id="modalTitle"></h2>
-        <h3 id="modalDescription"></h3>
-        <div class="watchbutton">
-          <a id="modalLink" href="#" target="_blank"><button>WATCH ONLINE OR DOWNLOAD</button></a>
-        </div>
-        <button class="closebutton" onclick="closeModal()">CLOSE</button>
+      <h1>ABOUT THE MOVIE</h1>
+      <h2 id="modalTitle"></h2>
+      <h3 id="modalDescription"></h3>
+      <div class="watchbutton">
+        <a id="modalLink" href="#" target="_blank"><button>WATCH ONLINE OR DOWNLOAD</button></a>
       </div>
+      <button class="closebutton" onclick="closeModal()">CLOSE</button>
     </div>
   </div>
 
@@ -264,63 +253,63 @@
         title: "Hobbs & Shaw",
         img: "https://resizing.flixster.com/nueif8QgjxjyAubMaxv4fPqOxT8=/fit-in/352x330/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15512904_p_v10_ac.jpg",
         poster: "https://wallpapercave.com/wp/wp3944676.jpg",
-        desc: "A lawman and an operative battle a cybernetically enhanced soldier who possesses a lethal pathogen.\nRelease date: August 2, 2019\nDirector: David Leitch",
+        desc: "A lawman and an operative battle a cybernetically enhanced soldier.\nRelease date: August 2, 2019\nDirector: David Leitch",
         link: "https://drive.google.com/file/d/1vOXy0QoL4Gt0LhHbYXfUjhehWLNyRw40/view?usp=sharing"
       },
       {
         title: "John Wick",
         img: "http://www.newdvdreleasedates.com/images/posters/large/john-wick-2014-06.jpg",
         poster: "https://i.etsystatic.com/26881902/r/il/88d0c5/3914964769/il_fullxfull.3914964769_kgcl.jpg",
-        desc: "An ex-hitman (Keanu Reeves) comes out of retirement to hunt down the mobsters who ruined his life.\nRelease date: October 24, 2014\nDirector: Chad Stahelski",
+        desc: "An ex-hitman comes out of retirement to hunt down the mobsters.\nRelease date: October 24, 2014\nDirector: Chad Stahelski",
         link: "https://drive.google.com/file/d/1P3APBF0THrXoseNrJWsAM_voiQPnjkcJ/view?usp=sharing"
       },
       {
         title: "Mad Max: Fury Road",
         img: "https://i.etsystatic.com/21028910/r/il/3c6029/2796712209/il_fullxfull.2796712209_d1z7.jpg",
         poster: "https://orig00.deviantart.net/5183/f/2015/025/5/a/mad_max__fury_road__2015____poster_by_camw1n-d8fbn8z.png",
-        desc: "Mad Max and a band of rebels try to outrun a warlord and his henchmen in a high-speed, desert chase.\nRelease date: May 15, 2015\nDirector: George Miller",
+        desc: "Mad Max and a band of rebels try to outrun a warlord.\nRelease date: May 15, 2015\nDirector: George Miller",
         link: "https://drive.google.com/file/d/1S2CbCdR1Vkkf4xocFHK1r9zL2TLkEAo8/view?usp=sharing"
       },
       {
         title: "Mr. & Mrs. Smith",
         img: "https://cdn.kinocheck.com/i/ltdyho7ube.jpg",
         poster: "https://i.pinimg.com/originals/ea/83/aa/ea83aa31e6ad8040c106997802517437.jpg",
-        desc: "A husband (Brad Pitt) and wife (Angelina Jolie) are assassins for rival organizations.\nRelease date: June 10, 2005\nDirector: Doug Liman",
+        desc: "A married couple are assassins for rival organizations.\nRelease date: June 10, 2005\nDirector: Doug Liman",
         link: "https://drive.google.com/file/d/1K03jWo94_i6ReMnroQebrUD-HVPJ6QT4/view?usp=sharing"
       },
       {
         title: "Civil War",
         img: "https://i.pinimg.com/originals/79/d3/82/79d382da2da72021fb9c71058314902b.jpg",
         poster: "https://i.pinimg.com/originals/9f/6a/a7/9f6aa7e86578c22033a36654cbb7557a.jpg",
-        desc: "A feud between Captain America and Iron Man leaves the Avengers in turmoil.\nRelease date: May 6, 2016\nDirector: Russo brothers",
+        desc: "A feud between Captain America and Iron Man divides the Avengers.\nRelease date: May 6, 2016\nDirector: Russo brothers",
         link: "https://drive.google.com/file/d/1dEEv5SxZ7J-JFY4P0ZLM9rbAr8jgXwBX/view?usp=sharing"
       },
       {
         title: "300",
         img: "https://i.pinimg.com/736x/d7/30/d8/d730d8dacf22cdee771c46f4e2480ba9---movie-brady.jpg",
         poster: "http://images2.fanpop.com/images/photos/6400000/300-the-movie-movies-6443657-1280-960.jpg",
-        desc: "Badly outnumbered Spartan warriors clash with the Persian army at the Battle of Thermopylae.\nRelease date: March 16, 2007\nDirector: Zack Snyder",
+        desc: "Spartan warriors clash with the Persian army.\nRelease date: March 16, 2007\nDirector: Zack Snyder",
         link: "https://drive.google.com/file/d/15E07idR_gzzVzuEvf6QqlZsKKkpsJ8a-/view?usp=sharing"
       },
       {
         title: "Knight and Day",
         img: "https://image.tmdb.org/t/p/original/zu9N5J9X2DjEVSycf1DE0iMpgf1.jpg",
         poster: "https://i.pinimg.com/originals/fd/64/01/fd6401f3d9dd64f9a79b0f6d78f79f0a.jpg",
-        desc: "A woman becomes the reluctant partner of a fugitive spy.\nRelease date: June 23, 2010\nDirector: James Mangold",
+        desc: "A woman gets caught up with a fugitive spy.\nRelease date: June 23, 2010\nDirector: James Mangold",
         link: "https://drive.google.com/file/d/1ixkEuI703VlMtBDH3FRccb8WWJG-NY10/view?usp=sharing"
       },
       {
         title: "The Expendables",
         img: "https://image.tmdb.org/t/p/original/zhe97i9wJ5WgZ0JJnJj3zSLLZt2.jpg",
         poster: "https://image.tmdb.org/t/p/original/tZW421SKb9KtaVKHEJ9EOnCvQ9W.jpg",
-        desc: "Mercenaries embark on a mission to overthrow a South American dictator.\nRelease date: August 13, 2010\nDirector: Sylvester Stallone",
+        desc: "Mercenaries embark on a mission.\nRelease date: August 13, 2010\nDirector: Sylvester Stallone",
         link: "https://drive.google.com/file/d/1z5z5exZGFm9gzbdI0AcSygzPn4AKG5vT/view?usp=sharing"
       },
       {
         title: "Extraction",
         img: "https://cdn.flickeringmyth.com/wp-content/uploads/2020/04/extraction-poster-2-600x889.jpg",
         poster: "https://image.tmdb.org/t/p/original/96ovd9JPD57R8cIMmGluFMFWt10.jpg",
-        desc: "A weary mercenary has to liberate an Indian boy who has been kidnapped.\nRelease date: April 24, 2020\nDirector: Sam Hargrave",
+        desc: "A weary mercenary must liberate a kidnapped Indian boy.\nRelease date: April 24, 2020\nDirector: Sam Hargrave",
         link: "https://drive.google.com/file/d/1dLYC9loCU1e7d4m__qxEOKGjnhDeXM3s/view?usp=sharing"
       }
     ];
