@@ -40,7 +40,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 60px 40px;
-      padding: 2rem 1rem 5rem;
+      padding: 2rem 1rem 2rem;
       max-width: 1000px;
       margin: 0 auto;
     }
@@ -97,10 +97,13 @@
       font-weight: bold;
       font-size: 0.85rem;
       color: #ffcc00;
-      background-color: #1c1c1c;
+      background-color: rgba(28, 28, 28, 0.9);
       margin-top: -30px;
       position: relative;
       z-index: 1;
+      word-break: break-word;
+      max-height: 3rem;
+      overflow: auto;
     }
 
     .modal-container {
@@ -204,10 +207,11 @@
       .modal-content h3 {
         font-size: 13.5px;
       }
-       .header {
-    font-size: 8px;
-    padding: 0.6rem 0.5rem;
-  }
+
+      .header {
+        font-size: 8px;
+        padding: 0.6rem 0.5rem;
+      }
     }
 
     @media screen and (max-width: 500px) {
@@ -227,6 +231,7 @@
       color: #999;
       background-color: #111;
       border-top: 1px solid #333;
+      margin: 0;
     }
   </style>
 </head>
