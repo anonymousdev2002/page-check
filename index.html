@@ -3,87 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movie Grid</title>
+  <title>Movie Carousel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Ubuntu", sans-serif;
-    }
-
-    html, body {
-      height: 100%;
     }
 
     body {
-      background-color: #111;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header {
-      text-align: center;
-      background-color: #222;
-      padding: 1rem;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 0 5px #000;
-    }
-
-    .backgroundvideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100vw;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: linear-gradient(135deg, #1f1c2c, #928dab);
       min-height: 100vh;
-      z-index: -1;
-      object-fit: cover;
+      color: #fff;
     }
 
-    .pics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 60px 80px;
-      padding: 2rem 1rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      flex-grow: 1;
+    section {
+      padding: 2rem 0;
     }
 
-    .pics div {
-      background-color: #1c1c1c;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .pics div:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 20px #ffcc00aa;
-    }
-
-    .pics img {
+    .swiper {
       width: 100%;
-      height: 280px;
-      object-fit: cover;
+      padding: 60px 0;
     }
 
-    .pics p {
-      text-align: center;
-      padding: 0.5rem;
+    .swiper-slide {
+      width: 300px;
+      height: 420px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .swiper-slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      z-index: 1;
+    }
+
+    .swiper-slide .caption {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      padding: 1rem;
+    }
+
+    .swiper-slide .caption h3 {
+      font-size: 1.2rem;
       font-weight: bold;
-      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
       color: #ffcc00;
-      background-color: rgba(28, 28, 28, 0.9);
-      word-break: break-word;
-      white-space: normal;
-      overflow: visible;
-      max-height: none;
+    }
+
+    .swiper-slide .caption p {
+      font-size: 0.85rem;
+      color: #ddd;
+    }
+
+    .swiper-pagination-bullet {
+      background: #fff;
+      opacity: 0.6;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #ffcc00;
+      transform: scale(1.4);
+      opacity: 1;
     }
 
     .modal-container {
@@ -105,252 +97,181 @@
     }
 
     .modal-content {
-      background: #1f1f1f;
-      padding: 0.8rem;
-      border-radius: 10px;
+      background: #2a2a2a;
+      padding: 1.5rem;
+      border-radius: 12px;
       width: 100%;
-      max-width: 360px;
-      max-height: 95vh;
-      color: #ddd;
+      max-width: 500px;
       text-align: center;
-      box-shadow: 0 0 20px #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.6rem;
+      color: #eee;
+      position: relative;
     }
 
     .modal-content img.poster {
-      width: 100%;
-      max-width: 150px;
-      height: auto;
+      width: 160px;
       border-radius: 10px;
-      margin: 0 auto;
-    }
-
-    .modal-content h1 {
-      font-size: 14px;
-      color: #ffcc00;
-      margin-bottom: 0.3rem;
+      margin-bottom: 1rem;
     }
 
     .modal-content h2 {
-      font-size: 15px;
-      margin-bottom: 0.2rem;
+      color: #ffcc00;
+      font-size: 20px;
+      margin: 0.5rem 0;
     }
 
     .modal-content h3 {
-      font-size: 13px;
-      line-height: 1.3;
-      padding: 0 0.5rem;
-      max-height: 140px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 1.5;
       white-space: pre-line;
+      color: #ccc;
     }
 
-    .watchbutton {
-      margin-top: 0.5rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .watchbutton button,
-    .closebutton {
+    .modal-content .watchbutton button,
+    .modal-content .closebutton {
       background-color: #ffcc00;
       border: none;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.85rem;
-      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
       cursor: pointer;
+      border-radius: 6px;
     }
 
-    .watchbutton button:hover,
-    .closebutton:hover {
-      background-color: #e6b800;
-    }
-
-    .watchbutton a {
-      text-decoration: none;
-    }
-
-    @media screen and (max-width: 768px) {
-      .pics {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .modal-content {
-        max-width: 95%;
-        max-height: 96vh;
-        padding: 1rem;
-      }
-
-      .modal-content img.poster {
-        max-width: 200px;
-      }
-
-      .modal-content h1 {
-        font-size: 15px;
-      }
-
-      .modal-content h2 {
-        font-size: 17px;
-      }
-
-      .modal-content h3 {
-        font-size: 14px;
-      }
-
-      .header {
-        font-size: 10px;
-        padding: 0.8rem 0.6rem;
-      }
-    }
-
-   @media screen and (max-width: 500px) {
-  .pics {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .pics img {
-    height: 100px;
-    width: 150px;
-  }
-
-  .pics p {
-    font-size: 0.65rem;
-    padding: 0.3rem;
-  }
-
-  .modal-content {
-    max-width: 95%;
-    max-height: 95vh;
-    padding: 1rem;
-  }
-
-  .modal-content h3 {
-    font-size: 14px;
-  }
-}
-
-
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.8rem;
-      color: #999;
-      background-color: #111;
-      border-top: 1px solid #333;
+    .modal-content .closebutton {
+      background-color: #333;
+      color: #fff;
+      margin-left: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="header">NOTE: PLEASE DOWNLOAD THE MOVIE TO ACCESS MULTIPLE AUDIO TRACK</div>
-  <video class="backgroundvideo" autoplay loop muted src="https://assets.mixkit.co/videos/23609/23609-720.mp4"></video>
-
-  <div class="pics"></div>
+  <section>
+    <div class="swiper">
+      <div class="swiper-wrapper"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
 
   <div class="modal-container" id="modal">
     <div class="modal-content">
       <img class="poster" id="modalPoster" src="" alt="Poster">
-      <h1>ABOUT THE MOVIE</h1>
       <h2 id="modalTitle"></h2>
       <h3 id="modalDescription"></h3>
       <div class="watchbutton">
-        <a id="modalLink" href="#" target="_blank"><button>WATCH ONLINE OR DOWNLOAD</button></a>
+        <a id="modalLink" href="#" target="_blank"><button>WATCH OR DOWNLOAD</button></a>
+        <button class="closebutton" onclick="closeModal()">CLOSE</button>
       </div>
-      <button class="closebutton" onclick="closeModal()">CLOSE</button>
     </div>
   </div>
 
-  <footer>I don’t own any rights for the movies.</footer>
-
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     const movies = [
       {
         title: "Hobbs & Shaw",
         img: "https://resizing.flixster.com/nueif8QgjxjyAubMaxv4fPqOxT8=/fit-in/352x330/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15512904_p_v10_ac.jpg",
         poster: "https://wallpapercave.com/wp/wp3944676.jpg",
-        desc: "A lawman and an operative battle a cybernetically enhanced soldier.\nRelease date: August 2, 2019\nDirector: David Leitch",
-        link: "https://drive.google.com/file/d/1vOXy0QoL4Gt0LhHbYXfUjhehWLNyRw40/view?usp=sharing"
+        desc: "A lawman and an operative battle a cybernetically enhanced soldier.\nRelease: Aug 2, 2019\nDirector: David Leitch",
+        link: "https://drive.google.com/file/d/1vOXy0QoL4Gt0LhHbYXfUjhehWLNyRw40/view"
       },
       {
         title: "John Wick",
         img: "http://www.newdvdreleasedates.com/images/posters/large/john-wick-2014-06.jpg",
         poster: "https://i.etsystatic.com/26881902/r/il/88d0c5/3914964769/il_fullxfull.3914964769_kgcl.jpg",
-        desc: "An ex-hitman comes out of retirement to hunt down the mobsters.\nRelease date: October 24, 2014\nDirector: Chad Stahelski",
-        link: "https://drive.google.com/file/d/1P3APBF0THrXoseNrJWsAM_voiQPnjkcJ/view?usp=sharing"
+        desc: "An ex-hitman comes out of retirement.\nRelease: Oct 24, 2014\nDirector: Chad Stahelski",
+        link: "https://drive.google.com/file/d/1P3APBF0THrXoseNrJWsAM_voiQPnjkcJ/view"
       },
       {
         title: "Mad Max: Fury Road",
         img: "https://i.etsystatic.com/21028910/r/il/3c6029/2796712209/il_fullxfull.2796712209_d1z7.jpg",
         poster: "https://orig00.deviantart.net/5183/f/2015/025/5/a/mad_max__fury_road__2015____poster_by_camw1n-d8fbn8z.png",
-        desc: "Mad Max and a band of rebels try to outrun a warlord.\nRelease date: May 15, 2015\nDirector: George Miller",
-        link: "https://drive.google.com/file/d/1S2CbCdR1Vkkf4xocFHK1r9zL2TLkEAo8/view?usp=sharing"
+        desc: "Max and rebels flee a warlord.\nRelease: May 15, 2015\nDirector: George Miller",
+        link: "https://drive.google.com/file/d/1S2CbCdR1Vkkf4xocFHK1r9zL2TLkEAo8/view"
       },
       {
         title: "Mr. & Mrs. Smith",
         img: "https://cdn.kinocheck.com/i/ltdyho7ube.jpg",
         poster: "https://i.pinimg.com/originals/ea/83/aa/ea83aa31e6ad8040c106997802517437.jpg",
-        desc: "A married couple are assassins for rival organizations.\nRelease date: June 10, 2005\nDirector: Doug Liman",
-        link: "https://drive.google.com/file/d/1K03jWo94_i6ReMnroQebrUD-HVPJ6QT4/view?usp=sharing"
+        desc: "A couple are assassins for rival groups.\nRelease: June 10, 2005\nDirector: Doug Liman",
+        link: "https://drive.google.com/file/d/1K03jWo94_i6ReMnroQebrUD-HVPJ6QT4/view"
       },
       {
         title: "Civil War",
         img: "https://i.pinimg.com/originals/79/d3/82/79d382da2da72021fb9c71058314902b.jpg",
         poster: "https://i.pinimg.com/originals/9f/6a/a7/9f6aa7e86578c22033a36654cbb7557a.jpg",
-        desc: "A feud between Captain America and Iron Man divides the Avengers.\nRelease date: May 6, 2016\nDirector: Russo brothers",
-        link: "https://drive.google.com/file/d/1dEEv5SxZ7J-JFY4P0ZLM9rbAr8jgXwBX/view?usp=sharing"
+        desc: "Cap vs Iron Man splits the Avengers.\nRelease: May 6, 2016\nDirector: Russo Brothers",
+        link: "https://drive.google.com/file/d/1dEEv5SxZ7J-JFY4P0ZLM9rbAr8jgXwBX/view"
       },
       {
         title: "300",
         img: "https://i.pinimg.com/736x/d7/30/d8/d730d8dacf22cdee771c46f4e2480ba9---movie-brady.jpg",
         poster: "http://images2.fanpop.com/images/photos/6400000/300-the-movie-movies-6443657-1280-960.jpg",
-        desc: "Spartan warriors clash with the Persian army.\nRelease date: March 16, 2007\nDirector: Zack Snyder",
-        link: "https://drive.google.com/file/d/15E07idR_gzzVzuEvf6QqlZsKKkpsJ8a-/view?usp=sharing"
+        desc: "Spartans fight the Persian army.\nRelease: Mar 16, 2007\nDirector: Zack Snyder",
+        link: "https://drive.google.com/file/d/15E07idR_gzzVzuEvf6QqlZsKKkpsJ8a-/view"
       },
       {
         title: "Knight and Day",
         img: "https://image.tmdb.org/t/p/original/zu9N5J9X2DjEVSycf1DE0iMpgf1.jpg",
         poster: "https://i.pinimg.com/originals/fd/64/01/fd6401f3d9dd64f9a79b0f6d78f79f0a.jpg",
-        desc: "A woman gets caught up with a fugitive spy.\nRelease date: June 23, 2010\nDirector: James Mangold",
-        link: "https://drive.google.com/file/d/1ixkEuI703VlMtBDH3FRccb8WWJG-NY10/view?usp=sharing"
+        desc: "Woman meets spy fugitive.\nRelease: June 23, 2010\nDirector: James Mangold",
+        link: "https://drive.google.com/file/d/1ixkEuI703VlMtBDH3FRccb8WWJG-NY10/view"
       },
       {
         title: "The Expendables",
         img: "https://image.tmdb.org/t/p/original/zhe97i9wJ5WgZ0JJnJj3zSLLZt2.jpg",
         poster: "https://image.tmdb.org/t/p/original/tZW421SKb9KtaVKHEJ9EOnCvQ9W.jpg",
-        desc: "Mercenaries embark on a mission.\nRelease date: August 13, 2010\nDirector: Sylvester Stallone",
-        link: "https://drive.google.com/file/d/1z5z5exZGFm9gzbdI0AcSygzPn4AKG5vT/view?usp=sharing"
+        desc: "Mercs on a deadly mission.\nRelease: Aug 13, 2010\nDirector: Sylvester Stallone",
+        link: "https://drive.google.com/file/d/1z5z5exZGFm9gzbdI0AcSygzPn4AKG5vT/view"
       },
       {
         title: "Extraction",
         img: "https://cdn.flickeringmyth.com/wp-content/uploads/2020/04/extraction-poster-2-600x889.jpg",
         poster: "https://image.tmdb.org/t/p/original/96ovd9JPD57R8cIMmGluFMFWt10.jpg",
-        desc: "A weary mercenary must liberate a kidnapped Indian boy.\nRelease date: April 24, 2020\nDirector: Sam Hargrave",
-        link: "https://drive.google.com/file/d/1dLYC9loCU1e7d4m__qxEOKGjnhDeXM3s/view?usp=sharing"
+        desc: "Merc rescues kidnapped boy.\nRelease: Apr 24, 2020\nDirector: Sam Hargrave",
+        link: "https://drive.google.com/file/d/1dLYC9loCU1e7d4m__qxEOKGjnhDeXM3s/view"
       }
     ];
 
-    const pics = document.querySelector(".pics");
-
+    const wrapper = document.querySelector('.swiper-wrapper');
     movies.forEach((movie) => {
-      const div = document.createElement("div");
-      div.innerHTML = `<img src="${movie.img}" alt=""><p>${movie.title}</p>`;
-      div.addEventListener("click", () => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.style.backgroundImage = `url('${movie.img}')`;
+      slide.innerHTML = `<div class="caption"><h3>${movie.title}</h3><p>Click for details</p></div>`;
+      slide.addEventListener('click', () => {
         document.getElementById("modalPoster").src = movie.poster;
         document.getElementById("modalTitle").textContent = movie.title;
         document.getElementById("modalDescription").textContent = movie.desc;
         document.getElementById("modalLink").href = movie.link;
         document.getElementById("modal").classList.add("show");
       });
-      pics.appendChild(div);
+      wrapper.appendChild(slide);
     });
 
     function closeModal() {
       document.getElementById("modal").classList.remove("show");
     }
+
+    new Swiper(".swiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 120,
+        modifier: 2,
+        slideShadows: true,
+      },
+      loop: true,
+      spaceBetween: 60,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
   </script>
 </body>
 </html>
