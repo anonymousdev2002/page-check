@@ -171,47 +171,57 @@
     text-decoration: none;
   }
 
-  @media screen and (max-width: 768px) {
-    .pics {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .modal-content {
-      max-width: 90%;
-      max-height: 90vh;
-    }
-
-    .modal-content img.poster {
-      max-width: 160px;
-    }
-
-    .modal-content h2 {
-      font-size: 15px;
-    }
-
-    .modal-content h3 {
-      font-size: 13.5px;
-    }
-
-    .header {
-      font-size: 8px;
-      padding: 0.6rem 0.5rem;
-    }
+@media screen and (max-width: 768px) {
+  .pics {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 500px) {
-    .pics {
-      grid-template-columns: 1fr;
-    }
-
-    .pics img {
-      height: 180px;
-    }
-
-    .modal-content h3 {
-      font-size: 13px;
-    }
+  .modal-content {
+    max-width: 95%;
+    max-height: 96vh;
+    padding: 1rem;
   }
+
+  .modal-content img.poster {
+    max-width: 200px;
+  }
+
+  .modal-content h1 {
+    font-size: 15px;
+  }
+
+  .modal-content h2 {
+    font-size: 17px;
+  }
+
+  .modal-content h3 {
+    font-size: 14px;
+  }
+
+  .header {
+    font-size: 10px;
+    padding: 0.8rem 0.6rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .pics {
+    grid-template-columns: 1fr;
+  }
+
+  .pics img {
+    height: 200px;
+  }
+
+  .modal-content img.poster {
+    max-width: 220px;
+  }
+
+  .modal-content h3 {
+    font-size: 14px;
+  }
+}
+
 
   footer {
     text-align: center;
